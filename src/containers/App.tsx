@@ -1,4 +1,4 @@
-import { Component, ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import { Robot } from '../models/robot.model';
