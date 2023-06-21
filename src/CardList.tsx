@@ -1,5 +1,5 @@
 import Card from './Card';
-import { Robot } from './model/robot.model';
+import { Robot } from './models/robot.model';
 
 interface Props {
   robots: Robot[];
