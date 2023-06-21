@@ -1,4 +1,4 @@
-import { Robot } from './models/robot.model';
+import { Robot } from '../models/robot.model';
 
 const Card = ({ id, name, email }: Robot) => {
   return (

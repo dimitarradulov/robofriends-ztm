@@ -1,8 +1,8 @@
 import { Component, ReactNode } from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
-import { Robot } from './models/robot.model';
-import Scroll from './Scroll';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
+import { Robot } from '../models/robot.model';
+import Scroll from '../Scroll';
 
 interface State {
   robots: Robot[];
