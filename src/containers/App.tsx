@@ -33,13 +33,15 @@ class App extends Component<any, State> {
   };
 
   render(): ReactNode {
-    const filteredRobots = this.state.robots.filter((robot) =>
-      robot.name.toLowerCase().includes(this.state.searchField)
+    const { robots, searchField } = this.state;
+
+    const filteredRobots = robots.filter((robot) =>
+      robot.name.toLowerCase().includes(searchField)
     );
 
     const loading = <p className="f3 tc">Loading...</p>;
 
-    if (!this.state.robots.length) return loading;
+    if (!robots.length) return loading;
 
     return (
       <div className="tc">
