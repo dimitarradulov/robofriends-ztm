@@ -1,7 +1,6 @@
 import { Component, ReactNode } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
-import { robots } from './robots';
 import { Robot } from './model/robot.model';
 
 interface State {
