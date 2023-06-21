@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import { Robot } from './model/robot.model';
+import Scroll from './Scroll';
 
 interface State {
   robots: Robot[];
@@ -44,7 +45,9 @@ class App extends Component<any, State> {
       <div className="tc">
         <h1 className="f1">RoboFriends</h1>
         <SearchBox searchChange={this.onSearchChange} />
-        <CardList robots={filteredRobots} />
+        <Scroll>
+          <CardList robots={filteredRobots} />
+        </Scroll>
       </div>
     );
   }
