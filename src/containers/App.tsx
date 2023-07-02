@@ -1,50 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
-import { Robot } from '../models/robot.model';
-import Scroll from './Scroll';
+import Scroll from '../components/Scroll';
+import { requestRobots, setSearchField } from '../actions';
+import Header from '../components/Header';
 
-interface RobotsState {
-  data: Robot[];
-  searchField: string;
-}
+const mapStateToProps = (state: any) => {
+  return {
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending,
+    error: state.requestRobots.error,
+  };
+};
 
-const App = () => {
-  const [robots, setRobots] = useState<RobotsState>({
-    data: [],
-    searchField: '',
-  });
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onSearchChange: (event: any) =>
+      dispatch(setSearchField(event.target.value)),
+    onRequestRobots: () => dispatch(requestRobots()),
+  };
+};
 
+const App: React.FC<any> = (props) => {
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((res) => res.json())
-      .then((res) =>
-        setRobots((currentRobotsValue) => ({
-          ...currentRobotsValue,
-          data: res,
-        }))
-      );
+    props.onRequestRobots();
   }, []);
 
-  function onSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setRobots((currentRobotsValue) => ({
-      ...currentRobotsValue,
-      searchField: event.target.value.toLowerCase(),
-    }));
-  }
-
-  const filteredRobots = robots.data.filter((robot) =>
-    robot.name.toLowerCase().includes(robots.searchField)
+  const filteredRobots = props.robots.filter((robot: any) =>
+    robot.name.toLowerCase().includes(props.searchField)
   );
 
   const loading = <p className="f3 tc">Loading...</p>;
 
-  if (!robots.data.length) return loading;
+  if (props.isPending) return loading;
 
   return (
     <div className="tc">
-      <h1 className="f1">RoboFriends</h1>
-      <SearchBox searchChange={onSearchChange} />
+      <Header />
+      <SearchBox searchChange={props.onSearchChange} />
       <Scroll>
         <CardList robots={filteredRobots} />
       </Scroll>
@@ -52,4 +48,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
